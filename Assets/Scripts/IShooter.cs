@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public interface IShooter
 {
 
     void EquipTrash(Trash trash); //쓰레기 장착
 
-    void SetTrashTransform(); //쓰레기 장착 위치 결정
+    Vector3 SetTrashTransform(); //쓰레기 장착 위치 결정
 
-    void Shoot(float power); //쓰레기 던지기
+    IEnumerator Shoot(float power); //쓰레기 던지기
+
+    Vector2 SetThrowDirection(); //쓰레기 던질 방향 정하기
 }

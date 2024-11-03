@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IPerson
 {
-
+    int GetAnger(); //분노수치 반환
     void IncreaseAnger(int value); //분노수치 증가
 
     void OnCollisionEnter2D(Collision2D collision); //충돌 시 실행

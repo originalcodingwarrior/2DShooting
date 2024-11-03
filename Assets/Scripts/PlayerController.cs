@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.selectedTrash && Input.GetMouseButtonDown(0))
+        if(player.IsHolding() && Input.GetMouseButtonDown(0))
         {
             isHoldingMouse = true;
             holdTime = 0f;
@@ -28,13 +28,13 @@ public class PlayerController : MonoBehaviour
         if(isHoldingMouse)
         {
             holdTime += Time.deltaTime;
-            Debug.Log("ÆÄ¿ö »ó½Â : " + holdTime);
+            //Debug.Log("ÆÄ¿ö »ó½Â : " + holdTime);
         }
 
-        if (player.selectedTrash && Input.GetMouseButtonUp(0))
+        if (player.IsHolding() && Input.GetMouseButtonUp(0))
         {
             isHoldingMouse = false;
-            player.Shoot(holdTime);
+            StartCoroutine(player.Shoot(holdTime));
             holdTime = 0f;
         }
 

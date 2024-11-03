@@ -221,8 +221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fbc8bbe3d5dd954ebe9667a8c8aa151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anger: 0
-  selectedTrash: {fileID: 0}
 --- !u!70 &5749259
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -534,8 +532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01eed0105902704cb62277e7d4dbc37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anger: 0
-  selectedTrash: {fileID: 0}
 --- !u!1 &307166350
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,6 +563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 5749258}
   neighbor: {fileID: 304945536}
+  currentTurnPerson: {fileID: 5749258}
 --- !u!4 &307166352
 Transform:
   m_ObjectHideFlags: 0

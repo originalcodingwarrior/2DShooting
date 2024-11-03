@@ -6,10 +6,12 @@ using UnityEngine;
 public class Trash : MonoBehaviour
 {
     public int angerImpact;
-    public bool isEquipped = false;
+
+    [SerializeField]
+    public Owner owner;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         TrashManager.RegisterTrash(this);
     }
@@ -23,10 +25,9 @@ public class Trash : MonoBehaviour
     void OnMouseDown() //클릭되었을 때
     {
         //Debug.Log("쓰레기 클릭");
-        if (CompareTag("Player's")) //PlayerZone에 있는 것이 맞다면
+        if (owner == Owner.Player && GameManager.Instance.IsPlayerTurn()) //플레이어 소유의 쓰레기가 맞는지, 플레이어의 턴이 맞는지 확인
         {
-            isEquipped = true;
-            TrashManager.EquipTrashToPerson(GameManager.Instance.player, this); //TrashManager를 통해 플레이어에게 Trash 장착
+            GameManager.Instance.player.EquipTrash(this); //플레이어에게 Trash 장착
         }
     }
 
@@ -34,13 +35,13 @@ public class Trash : MonoBehaviour
     {
         if (other.CompareTag("Neighbor's")) //NeighborZone에 들어왔다면
         {
-            gameObject.tag = "Neighbor's"; //Neighbor의 Trash가 됨
+            owner = Owner.Neighbor; //Neighbor의 Trash가 됨
             gameObject.GetComponent<SpriteRenderer>().color = new Color(0.1765f, 0.5647f, 1.0f, 1f); //그냥 디버깅용이에여
 
         }
         else if (other.CompareTag("Player's")) //PlayerZone에 들어왔다면
         {
-            gameObject.tag = "Player's"; //Player의 Trash가 됨
+            owner = Owner.Player; //Player의 Trash가 됨
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.9882f, 0.5804f, 1f); //그냥 디버깅용이에여
         }
     }

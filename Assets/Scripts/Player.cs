@@ -18,9 +18,13 @@ public class Player : Person
 
     }
 
-    public override void SetTrashTransform()
+    public override Vector3 SetTrashTransform()
     {
-        selectedTrash.transform.localPosition = transform.position + new Vector3(-1f, 1f, 0);
+        return transform.position + new Vector3(-1f, 1f, 0);
     }
 
+    public override Vector2 SetThrowDirection()
+    {
+        return new Vector2(1, 1).normalized;
+    }
 }

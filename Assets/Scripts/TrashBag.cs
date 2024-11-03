@@ -7,8 +7,9 @@ public class TrashBag : Trash
     public GameObject trashItemPrefab; //봉투 터졌을 때 나올 TrashItem의 Prefab
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         angerImpact = 2;
     }
 
