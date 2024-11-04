@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
 
         currentTurnPerson = player;
 
+        player.OnAngerIncreased += CheckWinner;
+        neighbor.OnAngerIncreased += CheckWinner;
     }
 
     // Update is called once per frame
@@ -67,5 +69,18 @@ public class GameManager : MonoBehaviour
         
     }
 
+    private void CheckWinner()
+    {
+        if(player.GetAnger() >= 10)
+        {
+            Debug.Log("Player이 분노를 참지 못하고 떠났습니다");
+            //엔딩
+        }
+        else if(neighbor.GetAnger() >= 10)
+        {
+            Debug.Log("Neighbor이 분노를 참지 못하고 떠났습니다");
+            //엔딩
+        }
+    }
 
 }

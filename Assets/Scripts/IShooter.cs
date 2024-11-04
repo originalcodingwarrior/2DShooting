@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public interface IShooter
+public interface IShooter //쓰레기 던지는 애들
 {
 
     void EquipTrash(Trash trash); //쓰레기 장착

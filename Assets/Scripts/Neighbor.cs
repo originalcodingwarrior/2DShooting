@@ -39,9 +39,9 @@ public class Neighbor : Person
     }
     public void PrepareShoot()
     {
-        EquipTrash(TrashManager.GetTrashForNeighbor());
-        randomHoldTime = Random.Range(0.3f, 1.5f);
-        isShooting = true;
+        EquipTrash(TrashManager.GetTrashForNeighbor()); //TrashManager한테 랜덤한 Trash 반환받고, 이걸 장착
+        randomHoldTime = Random.Range(0.3f, 1.5f); //얼마나 힘주고 있을지 결정
+        isShooting = true; //준비 다됐고 이제 슈팅 드가겠다
 
     }
 

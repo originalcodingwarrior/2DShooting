@@ -6,9 +6,10 @@ using UnityEngine;
 public abstract class Person : MonoBehaviour, IPerson, IShooter
 {
     private int anger = 0; //분노게이지 수치
+    public event Action OnAngerIncreased; //분노 올라갔을 때 발생시킬 이벤트
 
-    private GameObject selectedTrash = null; //던질 쓰레기
-    private Rigidbody2D trashRigidbody = null; //들고 있는 쓰레기의 Rigidbody2D. Trash 장착, 슛할 때 필요
+    protected GameObject selectedTrash = null; //던질 쓰레기
+    protected Rigidbody2D trashRigidbody = null; //들고 있는 쓰레기의 Rigidbody2D. Trash 장착, 슛할 때 필요
 
     public int GetAnger()
     {
@@ -19,6 +20,7 @@ public abstract class Person : MonoBehaviour, IPerson, IShooter
     {
         //Debug.Log(this.anger + "+" + value);
         this.anger += value;
+        OnAngerIncreased?.Invoke(); //분노 이벤트 발생
     }
 
     public bool IsHolding()

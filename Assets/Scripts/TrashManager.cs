@@ -38,5 +38,8 @@ public static class TrashManager
 
         
     }
-
+    public static void RemoveTrash(Trash trash)
+    {
+        allTrash.Remove(trash);
+    }
 }

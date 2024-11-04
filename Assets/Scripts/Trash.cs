@@ -6,8 +6,6 @@ using UnityEngine;
 public class Trash : MonoBehaviour
 {
     public int angerImpact;
-
-    [SerializeField]
     public Owner owner;
 
     // Start is called before the first frame update
