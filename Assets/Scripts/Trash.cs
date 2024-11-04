@@ -29,18 +29,14 @@ public class Trash : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other) //Zone에 닿았을 때
     {
-        if (other.CompareTag("Neighbor's")) //NeighborZone에 들어왔다면
-        {
-            owner = Owner.Neighbor; //Neighbor의 Trash가 됨
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(0.1765f, 0.5647f, 1.0f, 1f); //그냥 디버깅용이에여
+        TrashManager.ChangeOwner(this, other);
 
-        }
-        else if (other.CompareTag("Player's")) //PlayerZone에 들어왔다면
-        {
-            owner = Owner.Player; //Player의 Trash가 됨
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.9882f, 0.5804f, 1f); //그냥 디버깅용이에여
-        }
+        
+        
     }
+
+    
+
 }

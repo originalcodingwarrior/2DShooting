@@ -6,24 +6,87 @@ public static class TrashManager
 {
 
     //이 클래스가 하는 일~
-    //모든 Trash 관리 - 딱히 필요없을 것 같기도 한데 또 neighbor이 쓸 수 있는 쓰레기 확인하려면 필요하고 해서 걍 만들었삼
+    //모든 Trash 관리 - Player 소유인지 Neighbor 소유인지 Trash의 owner 관리
     //랜덤하게 Trash 하나 반환 - Neighbor이 장착할 Trash 고를 때 사용할 것.
+    //
 
-    private static List<Trash> allTrash = new List<Trash>(); //Trash 관리할 List
+    private static List<Trash> neighborTrash = new List<Trash>(); //neighbor쪽에 있는 Trash
+    private static List<Trash> playerTrash = new List<Trash>(); //player쪽에 있는 Trash
 
     public static void RegisterTrash(Trash trash) //생성된 Trash를 등록
     {
-        allTrash.Add(trash);
+        if (trash.owner == Owner.Player)
+        {
+            playerTrash.Add(trash);
+        }
+        else if (trash.owner == Owner.Neighbor)
+        {
+            neighborTrash.Add(trash);
+        }
         //Debug.Log("리스트에 Trash 추가:" + allTrash.Count + "번째");
+    }
+
+    public static void RemoveTrash(Trash trash)
+    {
+        if (trash.owner == Owner.Player)
+        {
+            playerTrash.Remove(trash);
+        }
+        else if (trash.owner == Owner.Neighbor)
+        {
+            neighborTrash.Remove(trash);
+        }
+    }
+
+    public static bool HasPlayerTrash()
+    {
+        return playerTrash.Count > 0;
+    }
+
+    public static bool HasNeighborTrash()
+    {
+        return neighborTrash.Count > 0;
+    }
+
+    public static void ChangeOwner(Trash trash, Collider2D other) //Trash의 Owner변경 + 리스트 갱신
+    {
+        Owner newOwner = DetermineNewOwner(other); //해당 Zone의 주인이 누군지 확인
+
+        if(newOwner == Owner.None) //이런 일은 아마 없을 것이지만 그냥 혹시 모르니까
+        {
+            Debug.Log("엣~??"); //엣~~??
+            return; //걍 암것도 하지말고 return
+        }
+
+        if(newOwner != trash.owner) //주인 바뀔거면
+        {
+            RemoveTrash(trash); //기존 리스트에 있던 거 지우고
+
+            trash.owner = newOwner; //주인 바꿔준 뒤
+
+            RegisterTrash(trash); //해당하는 리스트에 다시 등록
+        }
+
+    }
+    private static Owner DetermineNewOwner(Collider2D other) //Owner이 누군지 확인
+    {
+        if (other.CompareTag("Neighbor's")) //NeighborZone에 들어왔다면
+
+            return Owner.Neighbor; //Neighbor이 주인
+
+        else if (other.CompareTag("Player's")) //PlayerZone에 들어왔다면
+
+            return Owner.Player; //Player가 주인
+
+        return Owner.None; 
+        //어차피 Neighbor아니면 Player거일텐데 예외경우가 있을까싶긴함
+        //그래도 return을 해주긴 해줘야하니까 None만들어서 리턴시켰음
+
     }
 
     public static Trash GetTrashForNeighbor() //Neighbor이 쓸 Trash 골라주기
     {
-
-        List<Trash> neighborTrash = allTrash.FindAll(t => t.owner == Owner.Neighbor);
-        //neighbor의 trash만 싹 모으기
-
-        if (neighborTrash.Count > 0) { //neighbor의 trash가 있으면
+        if (HasNeighborTrash()) { //neighbor의 trash가 있으면
 
             int randomIndex = Random.Range(0, neighborTrash.Count);
 
@@ -36,10 +99,8 @@ public static class TrashManager
             return null; // 없으면 그냥 null 반환
         }
 
-        
     }
-    public static void RemoveTrash(Trash trash)
-    {
-        allTrash.Remove(trash);
-    }
+    
+
+
 }

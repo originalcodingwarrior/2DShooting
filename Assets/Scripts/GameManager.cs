@@ -5,7 +5,8 @@ using UnityEngine;
 public enum Owner
 {
     Player,
-    Neighbor
+    Neighbor,
+    None
 }
 
 public class GameManager : MonoBehaviour
@@ -58,12 +59,18 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("neighbor의 차례입니다");
             currentTurnPerson = neighbor; //상대방의 턴으로 변경
-            neighbor.PrepareShoot();
+            neighbor.PrepareShoot(); //neighbor이 슛할 수 있게 준비시키기
         }
         else //아니었으면
         {
             Debug.Log("player의 차례입니다");
             currentTurnPerson = player; //플레이어 턴으로 변경
+
+            if (!TrashManager.HasPlayerTrash()) //플레이어가 던질 수 있는 Trash가 없으면
+            {
+                Debug.Log("플레이어가 던질 수 있는 Trash가 없음");
+                SwitchTurn(); //걍 턴 바꾸기
+            }
         }
 
         
