@@ -8,7 +8,6 @@ public static class TrashManager
     //이 클래스가 하는 일~
     //모든 Trash 관리 - Player 소유인지 Neighbor 소유인지 Trash의 owner 관리
     //랜덤하게 Trash 하나 반환 - Neighbor이 장착할 Trash 고를 때 사용할 것.
-    //
 
     private static List<Trash> neighborTrash = new List<Trash>(); //neighbor쪽에 있는 Trash
     private static List<Trash> playerTrash = new List<Trash>(); //player쪽에 있는 Trash
@@ -23,7 +22,6 @@ public static class TrashManager
         {
             neighborTrash.Add(trash);
         }
-        //Debug.Log("리스트에 Trash 추가:" + allTrash.Count + "번째");
     }
 
     public static void RemoveTrash(Trash trash)
@@ -50,7 +48,7 @@ public static class TrashManager
 
     public static void ChangeOwner(Trash trash, Collider2D other) //Trash의 Owner변경 + 리스트 갱신
     {
-        Owner newOwner = DetermineNewOwner(other); //해당 Zone의 주인이 누군지 확인
+        Owner newOwner = DetermineNewOwner(other); //해당 Zone의 주인이 누군지 확인하고 owner결정
 
         if(newOwner == Owner.None) //이런 일은 아마 없을 것이지만 그냥 혹시 모르니까
         {

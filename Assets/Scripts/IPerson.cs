@@ -5,11 +5,10 @@ using System;
 
 public interface IPerson //쓰레기 맞으면 화내는 애들
 {
-    int GetAnger(); //분노수치 반환
     void IncreaseAnger(int value); //분노수치 증가
 
     void OnCollisionEnter2D(Collision2D collision); //충돌 시 실행
 
-    event Action OnAngerIncreased; //분노수치 올라가면 발생시킬 이벤트. (GamaManager가 구독할것)
+    event Action<int> OnAngerIncreased; //분노수치 올라가면 발생시킬 이벤트. (GamaManager가 구독할것)
 
 }

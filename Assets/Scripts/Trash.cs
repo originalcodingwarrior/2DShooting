@@ -5,13 +5,13 @@ using UnityEngine;
 //TrashBag과 TrashItem의 부모클래스
 public class Trash : MonoBehaviour
 {
-    public int angerImpact;
-    public Owner owner;
+    public int angerImpact; //사람이 맞았을 때 증가시킬 분노수치
+    public Owner owner; //해당 Trash를 던질 수 있는 사람. Trash가 누구의 영역에 있는지
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        TrashManager.RegisterTrash(this);
+        TrashManager.RegisterTrash(this); //TrashManager가 Trash를 관리할 수 있도록 List에 등록
     }
 
     // Update is called once per frame
@@ -31,10 +31,8 @@ public class Trash : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) //Zone에 닿았을 때
     {
-        TrashManager.ChangeOwner(this, other);
+        TrashManager.ChangeOwner(this, other); //owner 바꾸기
 
-        
-        
     }
 
     

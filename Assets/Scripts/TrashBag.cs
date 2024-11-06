@@ -26,7 +26,7 @@ public class TrashBag : Trash
         {
             //Debug.Log("쓰봉 터진다");
 
-            TrashManager.RemoveTrash(this); //TrashManager한테 알려줌
+            TrashManager.RemoveTrash(this); //TrashManager한테 알려줌. 리스트에서도 지워야하니까
             Destroy(gameObject); //TrashBag 터져 없어지고
 
             for(int i = 0; i < 5; i++)

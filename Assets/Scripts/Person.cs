@@ -5,22 +5,17 @@ using UnityEngine;
 
 public abstract class Person : MonoBehaviour, IPerson, IShooter
 {
-    private int anger = 0; //분노게이지 수치
-    public event Action OnAngerIncreased; //분노 올라갔을 때 발생시킬 이벤트
+    public int anger = 0; //분노게이지 수치
+    public event Action<int> OnAngerIncreased; //분노 올라갔을 때 발생시킬 이벤트
 
     protected GameObject selectedTrash = null; //던질 쓰레기
     protected Rigidbody2D trashRigidbody = null; //들고 있는 쓰레기의 Rigidbody2D. Trash 장착, 슛할 때 필요
-
-    public int GetAnger()
-    {
-        return anger;
-    }
 
     public void IncreaseAnger(int value)
     {
         //Debug.Log(this.anger + "+" + value);
         this.anger += value;
-        OnAngerIncreased?.Invoke(); //분노 이벤트 발생
+        OnAngerIncreased?.Invoke(anger); //분노 이벤트 발생. 현재 anger값 전달
     }
 
     public bool IsHolding()
@@ -55,7 +50,7 @@ public abstract class Person : MonoBehaviour, IPerson, IShooter
             selectedTrash = trash.gameObject;
             Debug.Log("쓰레기 장착");
 
-            //Trash가 Player의 손에 붙어있게 하는 과정
+            //Trash가 던지는 사람 손에 붙어있게 하는 과정
             trashRigidbody = trash.gameObject.GetComponent<Rigidbody2D>();
             trashRigidbody.isKinematic = true; // 물리 효과를 받지 않도록 설정
             trashRigidbody.constraints = RigidbodyConstraints2D.FreezeAll; // 모든 움직임을 제한

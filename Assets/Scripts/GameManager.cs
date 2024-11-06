@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance; //외부 클래스에서 접근 필요할 때 쓸 Instance
 
+    [SerializeField] private UIManager uiManager; //UIManager 참조. 턴 주인 Text 바꾸게 하고 싶어서
+
     public Player player;
     public Neighbor neighbor;
 
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         // 싱글톤
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -38,15 +40,16 @@ public class GameManager : MonoBehaviour
 
         currentTurnPerson = player;
 
-        player.OnAngerIncreased += CheckWinner;
-        neighbor.OnAngerIncreased += CheckWinner;
+        player.OnAngerIncreased += CheckPlayerLose; //player에서 OnAngerIncreased가 발생하면 CheckWinner를 실행하겠다는 뜻
+        neighbor.OnAngerIncreased += CheckNeighborLose;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
     public bool IsPlayerTurn() //Player의 턴인지
     {
         return currentTurnPerson == player;
@@ -57,13 +60,15 @@ public class GameManager : MonoBehaviour
 
         if (IsPlayerTurn()) //플레이어의 턴이었으면
         {
-            Debug.Log("neighbor의 차례입니다");
+            uiManager.UpdateTurnOwner("Neighbor"); //UI 텍스트 바꾸기
+
             currentTurnPerson = neighbor; //상대방의 턴으로 변경
             neighbor.PrepareShoot(); //neighbor이 슛할 수 있게 준비시키기
         }
         else //아니었으면
         {
-            Debug.Log("player의 차례입니다");
+            uiManager.UpdateTurnOwner("Player"); //UI 텍스트 바꾸기
+
             currentTurnPerson = player; //플레이어 턴으로 변경
 
             if (!TrashManager.HasPlayerTrash()) //플레이어가 던질 수 있는 Trash가 없으면
@@ -73,20 +78,21 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        
     }
 
-    private void CheckWinner()
+    private void CheckPlayerLose(int playerAnger) //Player가 졌는지 확인
     {
-        if(player.GetAnger() >= 10)
+        if (playerAnger >= 10)
         {
-            Debug.Log("Player이 분노를 참지 못하고 떠났습니다");
-            //엔딩
+            Debug.Log("Player 이사 엔딩");
         }
-        else if(neighbor.GetAnger() >= 10)
+    }
+
+    private void CheckNeighborLose(int neighborAnger) //Neighbor이 졌는지 확인
+    {
+        if (neighborAnger >= 10)
         {
-            Debug.Log("Neighbor이 분노를 참지 못하고 떠났습니다");
-            //엔딩
+            Debug.Log("Neighbor 이사 엔딩");
         }
     }
 
