@@ -3,19 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Person : MonoBehaviour, IPerson, IShooter
+public abstract class Person : MonoBehaviour, IAngerable, IShooter
 {
     public int anger = 0; //분노게이지 수치
-    public event Action<int> OnAngerIncreased; //분노 올라갔을 때 발생시킬 이벤트
+    public event Action<int> OnAngerChanged; //분노 올라갔을 때 발생시킬 이벤트 (GameManager가 구독)
 
     protected GameObject selectedTrash = null; //던질 쓰레기
     protected Rigidbody2D trashRigidbody = null; //들고 있는 쓰레기의 Rigidbody2D. Trash 장착, 슛할 때 필요
 
-    public void IncreaseAnger(int value)
+    public void IncreaseAnger(int value) //분노 증가
     {
-        //Debug.Log(this.anger + "+" + value);
         this.anger += value;
-        OnAngerIncreased?.Invoke(anger); //분노 이벤트 발생. 현재 anger값 전달
+        OnAngerChanged?.Invoke(anger); //분노 이벤트 발생. 현재 anger값 전달
+    }
+
+    public void DecreaseAnger(int value) //분노 감소
+    {
+        this.anger -= value;
+        OnAngerChanged?.Invoke(anger); //분노 이벤트 발생. 현재 anger값 전달
     }
 
     public bool IsHolding()
@@ -25,13 +30,11 @@ public abstract class Person : MonoBehaviour, IPerson, IShooter
 
     public void OnCollisionEnter2D(Collision2D collision) //충돌 시
     {
-        //Debug.Log("맞았다!");
-        Trash trash = collision.gameObject.GetComponent<Trash>();
+        Trash trash = collision.gameObject.GetComponent<Trash>(); //충돌한 Trash 참조
 
         if (trash != null)
         {
-            IncreaseAnger(trash.angerImpact);
-            //Debug.Log("쓰레기의 angerImpact: " + trash.angerImpact);
+            IncreaseAnger(trash.angerImpact); //해당 Trash의 angerImapact만큼 anger 증가
         }
     }
 
@@ -45,10 +48,10 @@ public abstract class Person : MonoBehaviour, IPerson, IShooter
             return;
         }
 
-        if (!IsHolding())
+        if (!IsHolding()) //쓰레기를 들고 있지 않다면
         {
             selectedTrash = trash.gameObject;
-            Debug.Log("쓰레기 장착");
+            //Debug.Log("쓰레기 장착");
 
             //Trash가 던지는 사람 손에 붙어있게 하는 과정
             trashRigidbody = trash.gameObject.GetComponent<Rigidbody2D>();
@@ -58,7 +61,7 @@ public abstract class Person : MonoBehaviour, IPerson, IShooter
             selectedTrash.transform.localPosition = SetTrashTransform();
 
         }
-        else
+        else //들고 있다면
         {
             Debug.Log("이미 쓰레기를 들고 있음");
         }

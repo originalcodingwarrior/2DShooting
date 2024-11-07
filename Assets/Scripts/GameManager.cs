@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
 
         currentTurnPerson = player;
 
-        player.OnAngerIncreased += CheckPlayerLose; //player에서 OnAngerIncreased가 발생하면 CheckWinner를 실행하겠다는 뜻
-        neighbor.OnAngerIncreased += CheckNeighborLose;
+        player.OnAngerChanged += CheckPlayerLose; //player에서 OnAngerIncreased가 발생하면 CheckWinner를 실행하겠다는 뜻
+        neighbor.OnAngerChanged += CheckNeighborLose;
     }
 
     // Update is called once per frame

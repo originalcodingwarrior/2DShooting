@@ -17,8 +17,8 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player.OnAngerIncreased += UpdatePlayerAnger;
-        neighbor.OnAngerIncreased += UpdateNeighborAnger;
+        player.OnAngerChanged += UpdatePlayerAnger;
+        neighbor.OnAngerChanged += UpdateNeighborAnger;
     }
 
     public void UpdatePlayerAnger(int newAnger)
