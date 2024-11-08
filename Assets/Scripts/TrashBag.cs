@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TrashBag : Trash
 {
+    //쓰봉 클래스
+
     public GameObject trashItemPrefab; //봉투 터졌을 때 나올 TrashItem의 Prefab
 
     // Start is called before the first frame update

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Neighbor : Person
 {
-    private const float MinHoldTime = 0.3f;
-    private const float MaxHoldTime = 1.5f;
+    const float MinHoldTime = 0.3f;
+    const float MaxHoldTime = 1.5f;
 
-    private float randomHoldTime; //얼마나 힘줄지
-    private float holdTime = 0f; //힘 준 시간
-    private bool isShooting = false; //힘 주고 있는지
+    float randomHoldTime; //얼마나 힘줄지
+    float holdTime = 0f; //힘 준 시간
+    bool isShooting = false; //힘 주고 있는지
+
+    public int reductionValue = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,16 @@ public class Neighbor : Person
         return new Vector2(-1, 1).normalized;
     }
 
+    public void CalmDown() //실행 조건은 GameManager에서 확인할 것. (Neighbor의 turn이 3의배수째인지)
+    {
+        Debug.Log("Neighbor의 CalmDown실행");
 
+        if(Random.Range(0, 2) == 0) //50%확률
+        {
+            Debug.Log("Neighbor CalmDown 성공!");
+            DecreaseAnger(reductionValue); //분노 감소
+        }
+        
+    }
 
 }

@@ -38,7 +38,7 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
         }
     }
 
-    public abstract Vector3 SetTrashTransform(); //쓰레기 위치 정하기
+    public abstract Vector3 SetTrashTransform(); //쓰레기 위치 세팅 (손 위치로)
 
     public void EquipTrash(Trash trash) //쓰레기 장착
     {
@@ -67,11 +67,14 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
         }
     }
 
-    public abstract Vector2 SetThrowDirection(); //쓰레기 던질 방향 정하기
+    public abstract Vector2 SetThrowDirection(); //쓰레기 던질 방향 세팅 (상대쪽 방향으로)
 
     public IEnumerator Shoot(float power) //쓰레기 던지기
     {
         if (IsHolding()) {
+
+            power += GameManager.Instance.currentWind; //바람 영향 고려
+
             float forceMultiPlier = power * 10f;
             Vector2 throwDirection = SetThrowDirection();
 

@@ -24,7 +24,17 @@ public class GameManager : MonoBehaviour
     public Player player;
     public Neighbor neighbor;
 
-    public Person currentTurnPerson; //현재 턴인 사람
+    public Person currentTurnPerson;
+
+    private int neighborTurnCount = 0; //이웃 턴 카운트 체크. 3턴마다 분노 감소시키려고
+
+
+    //바람도 GameManager가 갱신
+    public static float minWind = 0.5f;
+    public static float maxWind = -0.5f;
+
+    public float currentWind;
+
 
     private void Awake()
     {
@@ -40,14 +50,8 @@ public class GameManager : MonoBehaviour
 
         currentTurnPerson = player;
 
-        player.OnAngerChanged += CheckPlayerLose; //player에서 OnAngerIncreased가 발생하면 CheckWinner를 실행하겠다는 뜻
+        player.OnAngerChanged += CheckPlayerLose; //player에서 OnAngerChanged 이벤트가 발생하면 CheckPlayerLose를 실행하겠다는 뜻
         neighbor.OnAngerChanged += CheckNeighborLose;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public bool IsPlayerTurn() //Player의 턴인지
@@ -58,26 +62,47 @@ public class GameManager : MonoBehaviour
     public void SwitchTurn() //턴 바꾸기
     {
 
+        UpdateWind(); //바람 세기 업데이트
+        uiManager.UpdateWindUI(currentWind); //바람 UI도 업데이트
+
         if (IsPlayerTurn()) //플레이어의 턴이었으면
         {
-            uiManager.UpdateTurnOwner("Neighbor"); //UI 텍스트 바꾸기
-
-            currentTurnPerson = neighbor; //상대방의 턴으로 변경
-            neighbor.PrepareShoot(); //neighbor이 슛할 수 있게 준비시키기
+            NeighborTurn();
         }
-        else //아니었으면
+        else //이웃의 턴이었으면
         {
-            uiManager.UpdateTurnOwner("Player"); //UI 텍스트 바꾸기
-
-            currentTurnPerson = player; //플레이어 턴으로 변경
-
-            if (!TrashManager.HasPlayerTrash()) //플레이어가 던질 수 있는 Trash가 없으면
-            {
-                Debug.Log("플레이어가 던질 수 있는 Trash가 없음");
-                SwitchTurn(); //걍 턴 바꾸기
-            }
+            PlayerTurn();
         }
 
+    }
+
+    private void NeighborTurn()
+    {
+        uiManager.UpdateTurnOwner("Neighbor"); //UI 텍스트 바꾸기
+
+        currentTurnPerson = neighbor; //상대방의 턴으로 변경
+
+        if (++neighborTurnCount % 3 == 0) //3턴마다
+            neighbor.CalmDown(); //분노 감소 (50% 확률)
+
+        currentWind *= -1; //neighbor은 currentWind의 부호를 반대로 사용
+        neighbor.PrepareShoot(); //neighbor이 슛할 수 있게 준비시키기
+
+        uiManager.UpdateLight(neighborTurnCount); //신호등 UI 불 바꾸기
+    }
+
+    private void PlayerTurn()
+    {
+        uiManager.UpdateTurnOwner("Player"); //UI 텍스트 바꾸기
+
+        currentTurnPerson = player; //플레이어 턴으로 변경
+
+        if (!TrashManager.HasPlayerTrash()) //플레이어가 던질 수 있는 Trash가 없으면
+        {
+            Debug.Log("플레이어가 던질 수 있는 쓰레기가 없음");
+            SwitchTurn(); //걍 턴 바꾸기
+            return;
+        }
     }
 
     private void CheckPlayerLose(int playerAnger) //Player가 졌는지 확인
@@ -94,6 +119,12 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Neighbor 이사 엔딩");
         }
+    }
+
+    private void UpdateWind()
+    {
+        currentWind = Random.Range(minWind, maxWind);
+        //Debug.Log("현재 바람 : " +  currentWind);
     }
 
 }

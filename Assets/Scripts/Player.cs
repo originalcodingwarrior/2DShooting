@@ -6,7 +6,7 @@ public class Player : Person
 {
     int calmDownChance = 3; //분노게이지 감소 기회가 몇 번 남아있는지
 
-    int reductionValue = 1;
+    public int reductionValue = 1;
 
     // Start is called before the first frame update
     void Start()

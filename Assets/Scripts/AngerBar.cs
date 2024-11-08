@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class AngerBar : MonoBehaviour
 {
+    //분노 게이지바 클래스
+
     public Slider slider;
     public Image fillImage;
     public Gradient gradient;
