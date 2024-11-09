@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AngerBar : MonoBehaviour
 {
-    //ºĞ³ë °ÔÀÌÁö¹Ù Å¬·¡½º
+    //ë¶„ë…¸ ê²Œì´ì§€ë°” í´ë˜ìŠ¤
 
     public Slider slider;
     public Image fillImage;

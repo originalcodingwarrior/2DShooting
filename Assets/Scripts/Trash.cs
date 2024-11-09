@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//TrashBag°ú TrashItemÀÇ ºÎ¸ğÅ¬·¡½º
+//TrashBagê³¼ TrashItemì˜ ë¶€ëª¨í´ë˜ìŠ¤
 public class Trash : MonoBehaviour
 {
-    public int angerImpact; //»ç¶÷ÀÌ ¸Â¾ÒÀ» ¶§ Áõ°¡½ÃÅ³ ºĞ³ë¼öÄ¡
-    public Owner owner; //ÇØ´ç Trash¸¦ ´øÁú ¼ö ÀÖ´Â »ç¶÷. Trash°¡ ´©±¸ÀÇ ¿µ¿ª¿¡ ÀÖ´ÂÁö
+    public int angerImpact; //ì‚¬ëŒì´ ë§ì•˜ì„ ë•Œ ì¦ê°€ì‹œí‚¬ ë¶„ë…¸ìˆ˜ì¹˜
+    public Owner owner; //í•´ë‹¹ Trashë¥¼ ë˜ì§ˆ ìˆ˜ ìˆëŠ” ì‚¬ëŒ. Trashê°€ ëˆ„êµ¬ì˜ ì˜ì—­ì— ìˆëŠ”ì§€
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        TrashManager.RegisterTrash(this); //TrashManager°¡ Trash¸¦ °ü¸®ÇÒ ¼ö ÀÖµµ·Ï List¿¡ µî·Ï
+        TrashManager.RegisterTrash(this); //TrashManagerê°€ Trashë¥¼ ê´€ë¦¬í•  ìˆ˜ ìˆë„ë¡ Listì— ë“±ë¡
     }
 
     // Update is called once per frame
@@ -20,18 +20,18 @@ public class Trash : MonoBehaviour
         
     }
 
-    void OnMouseDown() //Å¬¸¯µÇ¾úÀ» ¶§
+    void OnMouseDown() //í´ë¦­ë˜ì—ˆì„ ë•Œ
     {
-        //Debug.Log("¾²·¹±â Å¬¸¯");
-        if (owner == Owner.Player && GameManager.Instance.IsPlayerTurn()) //ÇÃ·¹ÀÌ¾î ¼ÒÀ¯ÀÇ ¾²·¹±â°¡ ¸Â´ÂÁö, ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀÌ ¸Â´ÂÁö È®ÀÎ
+        //Debug.Log("ì“°ë ˆê¸° í´ë¦­");
+        if (owner == Owner.Player && GameManager.Instance.IsPlayerTurn()) //í”Œë ˆì´ì–´ ì†Œìœ ì˜ ì“°ë ˆê¸°ê°€ ë§ëŠ”ì§€, í”Œë ˆì´ì–´ì˜ í„´ì´ ë§ëŠ”ì§€ í™•ì¸
         {
-            GameManager.Instance.player.EquipTrash(this); //ÇÃ·¹ÀÌ¾î¿¡°Ô Trash ÀåÂø
+            GameManager.Instance.player.EquipTrash(this); //í”Œë ˆì´ì–´ì—ê²Œ Trash ì¥ì°©
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other) //Zone¿¡ ´ê¾ÒÀ» ¶§
+    void OnTriggerEnter2D(Collider2D other) //Zoneì— ë‹¿ì•˜ì„ ë•Œ
     {
-        TrashManager.ChangeOwner(this, other); //owner ¹Ù²Ù±â
+        TrashManager.ChangeOwner(this, other); //owner ë°”ê¾¸ê¸°
 
     }
 

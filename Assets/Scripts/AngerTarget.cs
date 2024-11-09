@@ -2,26 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AngerTarget : MonoBehaviour, IAngerable //ÇÇ°İ¸¸ ´ã´ç. ¾²·¹±â ¸ÂÀ¸¸é NeighborÀÇ Anger°ª ¿Ã¸®´Â ¾Öµé.
+public class AngerTarget : MonoBehaviour, IAngerable //í”¼ê²©ë§Œ ë‹´ë‹¹. ì“°ë ˆê¸° ë§ìœ¼ë©´ Neighborì˜ Angerê°’ ì˜¬ë¦¬ëŠ” ì• ë“¤.
 {
-    public Neighbor neighbor; //Neighbor ÂüÁ¶
+    public Neighbor neighbor; //Neighbor ì°¸ì¡°
 
-    public int angerBonus; //¶ô½ºÅ¸ÀÇ ±âÅ¸°°Àº °æ¿ì, Ãß°¡ÀûÀÎ µ¥¹ÌÁö°¡ µé¾î°¡´Ï±î º¯¼ö ¸¸µé¾î³õÀ½.
+    public int angerBonus; //ë½ìŠ¤íƒ€ì˜ ê¸°íƒ€ê°™ì€ ê²½ìš°, ì¶”ê°€ì ì¸ ë°ë¯¸ì§€ê°€ ë“¤ì–´ê°€ë‹ˆê¹Œ ë³€ìˆ˜ ë§Œë“¤ì–´ë†“ìŒ.
 
     public void IncreaseAnger(int value)
     {
-        neighbor.IncreaseAnger(value + angerBonus); //NeighborÀÇ anger ¿Ã¸®±â (+angerBonus)
+        neighbor.IncreaseAnger(value + angerBonus); //Neighborì˜ anger ì˜¬ë¦¬ê¸° (+angerBonus)
     }
 
-    public void OnCollisionEnter2D(Collision2D collision) //Ãæµ¹ ½Ã
+    public void OnCollisionEnter2D(Collision2D collision) //ì¶©ëŒ ì‹œ
     {
-        //Debug.Log("¸Â¾Ò´Ù!");
+        //Debug.Log("ë§ì•˜ë‹¤!");
         Trash trash = collision.gameObject.GetComponent<Trash>();
 
         if (trash != null)
         {
             IncreaseAnger(trash.angerImpact);
-            //Debug.Log("¾²·¹±âÀÇ angerImpact: " + trash.angerImpact);
+            //Debug.Log("ì“°ë ˆê¸°ì˜ angerImpact: " + trash.angerImpact);
         }
     }
 

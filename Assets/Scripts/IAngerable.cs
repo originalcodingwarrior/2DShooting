@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public interface IAngerable //¾²·¹±â ¸ÂÀ¸¸é Anger ¿Ã¸®´Â ¾Öµé
+public interface IAngerable //ì“°ë ˆê¸° ë§ìœ¼ë©´ Anger ì˜¬ë¦¬ëŠ” ì• ë“¤
 {
-    void IncreaseAnger(int value); //ºĞ³ë¼öÄ¡ Áõ°¡
+    void IncreaseAnger(int value); //ë¶„ë…¸ìˆ˜ì¹˜ ì¦ê°€
 
-    void OnCollisionEnter2D(Collision2D collision); //Ãæµ¹ ½Ã ½ÇÇà
+    void OnCollisionEnter2D(Collision2D collision); //ì¶©ëŒ ì‹œ ì‹¤í–‰
 
 }

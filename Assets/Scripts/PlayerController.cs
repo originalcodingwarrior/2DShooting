@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //ÇÃ·¹ÀÌ¾î ShootÇÒ ¶§ ¸¶¿ì½º ÀÔ·Â °ü¸®ÇÏ´Â Å¬·¡½º
+    //í”Œë ˆì´ì–´ Shootí•  ë•Œ ë§ˆìš°ìŠ¤ ì…ë ¥ ê´€ë¦¬í•˜ëŠ” í´ë˜ìŠ¤
 
     private float holdTime = 0f;
     private bool isHoldingMouse = false;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         if(isHoldingMouse)
         {
             holdTime += Time.deltaTime;
-            //Debug.Log("ÆÄ¿ö »ó½Â : " + holdTime);
+            //Debug.Log("íŒŒì›Œ ìƒìŠ¹ : " + holdTime);
         }
 
         if (player.IsHolding() && Input.GetMouseButtonUp(0))

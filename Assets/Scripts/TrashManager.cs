@@ -5,14 +5,14 @@ using UnityEngine;
 public static class TrashManager
 {
 
-    //ÀÌ Å¬·¡½º°¡ ÇÏ´Â ÀÏ~
-    //¸ğµç Trash °ü¸® - Player ¼ÒÀ¯ÀÎÁö Neighbor ¼ÒÀ¯ÀÎÁö TrashÀÇ owner °ü¸®
-    //·£´ıÇÏ°Ô Trash ÇÏ³ª ¹İÈ¯ - NeighborÀÌ ÀåÂøÇÒ Trash °í¸¦ ¶§ »ç¿ëÇÒ °Í.
+    //ì´ í´ë˜ìŠ¤ê°€ í•˜ëŠ” ì¼~
+    //ëª¨ë“  Trash ê´€ë¦¬ - Player ì†Œìœ ì¸ì§€ Neighbor ì†Œìœ ì¸ì§€ Trashì˜ owner ê´€ë¦¬
+    //ëœë¤í•˜ê²Œ Trash í•˜ë‚˜ ë°˜í™˜ - Neighborì´ ì¥ì°©í•  Trash ê³ ë¥¼ ë•Œ ì‚¬ìš©í•  ê²ƒ.
 
-    private static List<Trash> neighborTrash = new List<Trash>(); //neighborÂÊ¿¡ ÀÖ´Â Trash
-    private static List<Trash> playerTrash = new List<Trash>(); //playerÂÊ¿¡ ÀÖ´Â Trash
+    private static List<Trash> neighborTrash = new List<Trash>(); //neighborìª½ì— ìˆëŠ” Trash
+    private static List<Trash> playerTrash = new List<Trash>(); //playerìª½ì— ìˆëŠ” Trash
 
-    public static void RegisterTrash(Trash trash) //»ı¼ºµÈ Trash¸¦ µî·Ï
+    public static void RegisterTrash(Trash trash) //ìƒì„±ëœ Trashë¥¼ ë“±ë¡
     {
         if (trash.owner == Owner.Player)
         {
@@ -46,55 +46,55 @@ public static class TrashManager
         return neighborTrash.Count > 0;
     }
 
-    public static void ChangeOwner(Trash trash, Collider2D other) //TrashÀÇ Ownerº¯°æ + ¸®½ºÆ® °»½Å
+    public static void ChangeOwner(Trash trash, Collider2D other) //Trashì˜ Ownerë³€ê²½ + ë¦¬ìŠ¤íŠ¸ ê°±ì‹ 
     {
-        Owner newOwner = DetermineNewOwner(other); //ÇØ´ç ZoneÀÇ ÁÖÀÎÀÌ ´©±ºÁö È®ÀÎÇÏ°í owner°áÁ¤
+        Owner newOwner = DetermineNewOwner(other); //í•´ë‹¹ Zoneì˜ ì£¼ì¸ì´ ëˆ„êµ°ì§€ í™•ì¸í•˜ê³  ownerê²°ì •
 
-        if(newOwner == Owner.None) //ÀÌ·± ÀÏÀº ¾Æ¸¶ ¾øÀ» °ÍÀÌÁö¸¸ ±×³É È¤½Ã ¸ğ¸£´Ï±î
+        if(newOwner == Owner.None) //ì´ëŸ° ì¼ì€ ì•„ë§ˆ ì—†ì„ ê²ƒì´ì§€ë§Œ ê·¸ëƒ¥ í˜¹ì‹œ ëª¨ë¥´ë‹ˆê¹Œ
         {
-            Debug.Log("¿§~??"); //¿§~~??
-            return; //°Á ¾Ï°Íµµ ÇÏÁö¸»°í return
+            Debug.Log("ì—£~??"); //ì—£~~??
+            return; //ê± ì•”ê²ƒë„ í•˜ì§€ë§ê³  return
         }
 
-        if(newOwner != trash.owner) //ÁÖÀÎ ¹Ù²ğ°Å¸é
+        if(newOwner != trash.owner) //ì£¼ì¸ ë°”ë€”ê±°ë©´
         {
-            RemoveTrash(trash); //±âÁ¸ ¸®½ºÆ®¿¡ ÀÖ´ø °Å Áö¿ì°í
+            RemoveTrash(trash); //ê¸°ì¡´ ë¦¬ìŠ¤íŠ¸ì— ìˆë˜ ê±° ì§€ìš°ê³ 
 
-            trash.owner = newOwner; //ÁÖÀÎ ¹Ù²ãÁØ µÚ
+            trash.owner = newOwner; //ì£¼ì¸ ë°”ê¿”ì¤€ ë’¤
 
-            RegisterTrash(trash); //ÇØ´çÇÏ´Â ¸®½ºÆ®¿¡ ´Ù½Ã µî·Ï
+            RegisterTrash(trash); //í•´ë‹¹í•˜ëŠ” ë¦¬ìŠ¤íŠ¸ì— ë‹¤ì‹œ ë“±ë¡
         }
 
     }
-    private static Owner DetermineNewOwner(Collider2D other) //OwnerÀÌ ´©±ºÁö È®ÀÎ
+    private static Owner DetermineNewOwner(Collider2D other) //Ownerì´ ëˆ„êµ°ì§€ í™•ì¸
     {
-        if (other.CompareTag("Neighbor's")) //NeighborZone¿¡ µé¾î¿Ô´Ù¸é
+        if (other.CompareTag("Neighbor's")) //NeighborZoneì— ë“¤ì–´ì™”ë‹¤ë©´
 
-            return Owner.Neighbor; //NeighborÀÌ ÁÖÀÎ
+            return Owner.Neighbor; //Neighborì´ ì£¼ì¸
 
-        else if (other.CompareTag("Player's")) //PlayerZone¿¡ µé¾î¿Ô´Ù¸é
+        else if (other.CompareTag("Player's")) //PlayerZoneì— ë“¤ì–´ì™”ë‹¤ë©´
 
-            return Owner.Player; //Player°¡ ÁÖÀÎ
+            return Owner.Player; //Playerê°€ ì£¼ì¸
 
         return Owner.None; 
-        //¾îÂ÷ÇÇ Neighbor¾Æ´Ï¸é Player°ÅÀÏÅÙµ¥ ¿¹¿Ü°æ¿ì°¡ ÀÖÀ»±î½Í±äÇÔ
-        //±×·¡µµ returnÀ» ÇØÁÖ±ä ÇØÁà¾ßÇÏ´Ï±î None¸¸µé¾î¼­ ¸®ÅÏ½ÃÄ×À½
+        //ì–´ì°¨í”¼ Neighborì•„ë‹ˆë©´ Playerê±°ì¼í…ë° ì˜ˆì™¸ê²½ìš°ê°€ ìˆì„ê¹Œì‹¶ê¸´í•¨
+        //ê·¸ë˜ë„ returnì„ í•´ì£¼ê¸´ í•´ì¤˜ì•¼í•˜ë‹ˆê¹Œ Noneë§Œë“¤ì–´ì„œ ë¦¬í„´ì‹œì¼°ìŒ
 
     }
 
-    public static Trash GetTrashForNeighbor() //NeighborÀÌ ¾µ Trash °ñ¶óÁÖ±â
+    public static Trash GetTrashForNeighbor() //Neighborì´ ì“¸ Trash ê³¨ë¼ì£¼ê¸°
     {
-        if (HasNeighborTrash()) { //neighborÀÇ trash°¡ ÀÖÀ¸¸é
+        if (HasNeighborTrash()) { //neighborì˜ trashê°€ ìˆìœ¼ë©´
 
             int randomIndex = Random.Range(0, neighborTrash.Count);
 
-            return neighborTrash[randomIndex]; //·£´ıÇÑ trash ¹İÈ¯
+            return neighborTrash[randomIndex]; //ëœë¤í•œ trash ë°˜í™˜
         }
         else
         {
-            Debug.Log("NeighborÂÊ¿¡ ÀÖ´Â Trash ¾øÀ½");
+            Debug.Log("Neighborìª½ì— ìˆëŠ” Trash ì—†ìŒ");
 
-            return null; // ¾øÀ¸¸é ±×³É null ¹İÈ¯
+            return null; // ì—†ìœ¼ë©´ ê·¸ëƒ¥ null ë°˜í™˜
         }
 
     }

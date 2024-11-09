@@ -7,9 +7,9 @@ public class Neighbor : Person
     const float MinHoldTime = 0.3f;
     const float MaxHoldTime = 1.5f;
 
-    float randomHoldTime; //¾ó¸¶³ª ÈûÁÙÁö
-    float holdTime = 0f; //Èû ÁØ ½Ã°£
-    bool isShooting = false; //Èû ÁÖ°í ÀÖ´ÂÁö
+    float randomHoldTime; //ì–¼ë§ˆë‚˜ í˜ì¤„ì§€
+    float holdTime = 0f; //í˜ ì¤€ ì‹œê°„
+    bool isShooting = false; //í˜ ì£¼ê³  ìˆëŠ”ì§€
 
     public int reductionValue = 1;
 
@@ -26,7 +26,7 @@ public class Neighbor : Person
         if (isShooting)
         {
             holdTime += Time.deltaTime;
-            //Debug.Log("ÆÄ¿ö »ó½Â : " + holdTime);
+            //Debug.Log("íŒŒì›Œ ìƒìŠ¹ : " + holdTime);
 
             if (holdTime >= randomHoldTime)
             {
@@ -41,9 +41,9 @@ public class Neighbor : Person
     }
     public void PrepareShoot()
     {
-        EquipTrash(TrashManager.GetTrashForNeighbor()); //TrashManagerÇÑÅ× ·£´ıÇÑ Trash ¹İÈ¯¹Ş°í, ÀÌ°É ÀåÂø
-        randomHoldTime = Random.Range(0.3f, 1.5f); //¾ó¸¶³ª ÈûÁÖ°í ÀÖÀ»Áö °áÁ¤
-        isShooting = true; //ÁØºñ ´ÙµÆ°í ÀÌÁ¦ ½´ÆÃ µå°¡°Ú´Ù
+        EquipTrash(TrashManager.GetTrashForNeighbor()); //TrashManagerí•œí…Œ ëœë¤í•œ Trash ë°˜í™˜ë°›ê³ , ì´ê±¸ ì¥ì°©
+        randomHoldTime = Random.Range(0.3f, 1.5f); //ì–¼ë§ˆë‚˜ í˜ì£¼ê³  ìˆì„ì§€ ê²°ì •
+        isShooting = true; //ì¤€ë¹„ ë‹¤ëê³  ì´ì œ ìŠˆíŒ… ë“œê°€ê² ë‹¤
 
     }
 
@@ -57,14 +57,14 @@ public class Neighbor : Person
         return new Vector2(-1, 1).normalized;
     }
 
-    public void CalmDown() //½ÇÇà Á¶°ÇÀº GameManager¿¡¼­ È®ÀÎÇÒ °Í. (NeighborÀÇ turnÀÌ 3ÀÇ¹è¼öÂ°ÀÎÁö)
+    public void CalmDown() //ì‹¤í–‰ ì¡°ê±´ì€ GameManagerì—ì„œ í™•ì¸í•  ê²ƒ. (Neighborì˜ turnì´ 3ì˜ë°°ìˆ˜ì§¸ì¸ì§€)
     {
-        Debug.Log("NeighborÀÇ CalmDown½ÇÇà");
+        Debug.Log("Neighborì˜ CalmDownì‹¤í–‰");
 
-        if(Random.Range(0, 2) == 0) //50%È®·ü
+        if(Random.Range(0, 2) == 0) //50%í™•ë¥ 
         {
-            Debug.Log("Neighbor CalmDown ¼º°ø!");
-            DecreaseAnger(reductionValue); //ºĞ³ë °¨¼Ò
+            Debug.Log("Neighbor CalmDown ì„±ê³µ!");
+            DecreaseAnger(reductionValue); //ë¶„ë…¸ ê°ì†Œ
         }
         
     }

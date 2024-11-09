@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrashItem : Trash 
 {
-    //¾²ºÀ ÅÍÁö¸é ³ª¿À´Â ¾²·¹±âµé Å¬·¡½º
+    //ì“°ë´‰ í„°ì§€ë©´ ë‚˜ì˜¤ëŠ” ì“°ë ˆê¸°ë“¤ í´ë˜ìŠ¤
 
     // Start is called before the first frame update
     protected override void Start()

@@ -11,25 +11,25 @@ public enum Owner
 
 public class GameManager : MonoBehaviour
 {
-    //ÅÏ °ü¸® - ¹ø°¥¾Æ°¡¸é¼­ ½¸ ½ÃÅ°±â.
-    //°ÔÀÓ ½ÂÆĞ °áÁ¤
+    //í„´ ê´€ë¦¬ - ë²ˆê°ˆì•„ê°€ë©´ì„œ ìŠ› ì‹œí‚¤ê¸°.
+    //ê²Œì„ ìŠ¹íŒ¨ ê²°ì •
 
-    //NeighborÀÌ ´øÁö´Â Èûµµ ÅÏ ¹Ù²Ù°í ¹Ù·Î °áÁ¤ÇØ¼­ ³Ñ°ÜÁÖ·Á°í Çß´Âµ¥ ÀÌ°É GameManager°¡ ÇÒ ¿ªÇÒÀÌ ¸Â´ÂÁö ¸ğ¸£°ÚÀ½
-    //µû·Î Å¬·¡½º¸¦ ±¸ºĞÇÒ±î¿©¸»±î¿© ¾ÓµüÁ¤ ºÎÅ¹
+    //Neighborì´ ë˜ì§€ëŠ” í˜ë„ í„´ ë°”ê¾¸ê³  ë°”ë¡œ ê²°ì •í•´ì„œ ë„˜ê²¨ì£¼ë ¤ê³  í–ˆëŠ”ë° ì´ê±¸ GameManagerê°€ í•  ì—­í• ì´ ë§ëŠ”ì§€ ëª¨ë¥´ê² ìŒ
+    //ë”°ë¡œ í´ë˜ìŠ¤ë¥¼ êµ¬ë¶„í• ê¹Œì—¬ë§ê¹Œì—¬ ì•™ë”±ì • ë¶€íƒ
 
-    public static GameManager Instance; //¿ÜºÎ Å¬·¡½º¿¡¼­ Á¢±Ù ÇÊ¿äÇÒ ¶§ ¾µ Instance
+    public static GameManager Instance; //ì™¸ë¶€ í´ë˜ìŠ¤ì—ì„œ ì ‘ê·¼ í•„ìš”í•  ë•Œ ì“¸ Instance
 
-    [SerializeField] private UIManager uiManager; //UIManager ÂüÁ¶. ÅÏ ÁÖÀÎ Text ¹Ù²Ù°Ô ÇÏ°í ½Í¾î¼­
+    [SerializeField] private UIManager uiManager; //UIManager ì°¸ì¡°. í„´ ì£¼ì¸ Text ë°”ê¾¸ê²Œ í•˜ê³  ì‹¶ì–´ì„œ
 
     public Player player;
     public Neighbor neighbor;
 
     public Person currentTurnPerson;
 
-    private int neighborTurnCount = 0; //ÀÌ¿ô ÅÏ Ä«¿îÆ® Ã¼Å©. 3ÅÏ¸¶´Ù ºĞ³ë °¨¼Ò½ÃÅ°·Á°í
+    private int neighborTurnCount = 0; //ì´ì›ƒ í„´ ì¹´ìš´íŠ¸ ì²´í¬. 3í„´ë§ˆë‹¤ ë¶„ë…¸ ê°ì†Œì‹œí‚¤ë ¤ê³ 
 
 
-    //¹Ù¶÷µµ GameManager°¡ °»½Å
+    //ë°”ëŒë„ GameManagerê°€ ê°±ì‹ 
     public static float minWind = 0.5f;
     public static float maxWind = -0.5f;
 
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // ½Ì±ÛÅæ
+        // ì‹±ê¸€í†¤
         if (Instance == null)
         {
             Instance = this;
@@ -50,26 +50,26 @@ public class GameManager : MonoBehaviour
 
         currentTurnPerson = player;
 
-        player.OnAngerChanged += CheckPlayerLose; //player¿¡¼­ OnAngerChanged ÀÌº¥Æ®°¡ ¹ß»ıÇÏ¸é CheckPlayerLose¸¦ ½ÇÇàÇÏ°Ú´Ù´Â ¶æ
+        player.OnAngerChanged += CheckPlayerLose; //playerì—ì„œ OnAngerChanged ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ë©´ CheckPlayerLoseë¥¼ ì‹¤í–‰í•˜ê² ë‹¤ëŠ” ëœ»
         neighbor.OnAngerChanged += CheckNeighborLose;
     }
 
-    public bool IsPlayerTurn() //PlayerÀÇ ÅÏÀÎÁö
+    public bool IsPlayerTurn() //Playerì˜ í„´ì¸ì§€
     {
         return currentTurnPerson == player;
     }
 
-    public void SwitchTurn() //ÅÏ ¹Ù²Ù±â
+    public void SwitchTurn() //í„´ ë°”ê¾¸ê¸°
     {
 
-        UpdateWind(); //¹Ù¶÷ ¼¼±â ¾÷µ¥ÀÌÆ®
-        uiManager.UpdateWindUI(currentWind); //¹Ù¶÷ UIµµ ¾÷µ¥ÀÌÆ®
+        UpdateWind(); //ë°”ëŒ ì„¸ê¸° ì—…ë°ì´íŠ¸
+        uiManager.UpdateWindUI(currentWind); //ë°”ëŒ UIë„ ì—…ë°ì´íŠ¸
 
-        if (IsPlayerTurn()) //ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀÌ¾úÀ¸¸é
+        if (IsPlayerTurn()) //í”Œë ˆì´ì–´ì˜ í„´ì´ì—ˆìœ¼ë©´
         {
             NeighborTurn();
         }
-        else //ÀÌ¿ôÀÇ ÅÏÀÌ¾úÀ¸¸é
+        else //ì´ì›ƒì˜ í„´ì´ì—ˆìœ¼ë©´
         {
             PlayerTurn();
         }
@@ -78,53 +78,53 @@ public class GameManager : MonoBehaviour
 
     private void NeighborTurn()
     {
-        uiManager.UpdateTurnOwner("Neighbor"); //UI ÅØ½ºÆ® ¹Ù²Ù±â
+        uiManager.UpdateTurnOwner("Neighbor"); //UI í…ìŠ¤íŠ¸ ë°”ê¾¸ê¸°
 
-        currentTurnPerson = neighbor; //»ó´ë¹æÀÇ ÅÏÀ¸·Î º¯°æ
+        currentTurnPerson = neighbor; //ìƒëŒ€ë°©ì˜ í„´ìœ¼ë¡œ ë³€ê²½
 
-        if (++neighborTurnCount % 3 == 0) //3ÅÏ¸¶´Ù
-            neighbor.CalmDown(); //ºĞ³ë °¨¼Ò (50% È®·ü)
+        if (++neighborTurnCount % 3 == 0) //3í„´ë§ˆë‹¤
+            neighbor.CalmDown(); //ë¶„ë…¸ ê°ì†Œ (50% í™•ë¥ )
 
-        currentWind *= -1; //neighborÀº currentWindÀÇ ºÎÈ£¸¦ ¹İ´ë·Î »ç¿ë
-        neighbor.PrepareShoot(); //neighborÀÌ ½¸ÇÒ ¼ö ÀÖ°Ô ÁØºñ½ÃÅ°±â
+        currentWind *= -1; //neighborì€ currentWindì˜ ë¶€í˜¸ë¥¼ ë°˜ëŒ€ë¡œ ì‚¬ìš©
+        neighbor.PrepareShoot(); //neighborì´ ìŠ›í•  ìˆ˜ ìˆê²Œ ì¤€ë¹„ì‹œí‚¤ê¸°
 
-        uiManager.UpdateLight(neighborTurnCount); //½ÅÈ£µî UI ºÒ ¹Ù²Ù±â
+        uiManager.UpdateLight(neighborTurnCount); //ì‹ í˜¸ë“± UI ë¶ˆ ë°”ê¾¸ê¸°
     }
 
     private void PlayerTurn()
     {
-        uiManager.UpdateTurnOwner("Player"); //UI ÅØ½ºÆ® ¹Ù²Ù±â
+        uiManager.UpdateTurnOwner("Player"); //UI í…ìŠ¤íŠ¸ ë°”ê¾¸ê¸°
 
-        currentTurnPerson = player; //ÇÃ·¹ÀÌ¾î ÅÏÀ¸·Î º¯°æ
+        currentTurnPerson = player; //í”Œë ˆì´ì–´ í„´ìœ¼ë¡œ ë³€ê²½
 
-        if (!TrashManager.HasPlayerTrash()) //ÇÃ·¹ÀÌ¾î°¡ ´øÁú ¼ö ÀÖ´Â Trash°¡ ¾øÀ¸¸é
+        if (!TrashManager.HasPlayerTrash()) //í”Œë ˆì´ì–´ê°€ ë˜ì§ˆ ìˆ˜ ìˆëŠ” Trashê°€ ì—†ìœ¼ë©´
         {
-            Debug.Log("ÇÃ·¹ÀÌ¾î°¡ ´øÁú ¼ö ÀÖ´Â ¾²·¹±â°¡ ¾øÀ½");
-            SwitchTurn(); //°Á ÅÏ ¹Ù²Ù±â
+            Debug.Log("í”Œë ˆì´ì–´ê°€ ë˜ì§ˆ ìˆ˜ ìˆëŠ” ì“°ë ˆê¸°ê°€ ì—†ìŒ");
+            SwitchTurn(); //ê± í„´ ë°”ê¾¸ê¸°
             return;
         }
     }
 
-    private void CheckPlayerLose(int playerAnger) //Player°¡ Á³´ÂÁö È®ÀÎ
+    private void CheckPlayerLose(int playerAnger) //Playerê°€ ì¡ŒëŠ”ì§€ í™•ì¸
     {
         if (playerAnger >= 10)
         {
-            Debug.Log("Player ÀÌ»ç ¿£µù");
+            Debug.Log("Player ì´ì‚¬ ì—”ë”©");
         }
     }
 
-    private void CheckNeighborLose(int neighborAnger) //NeighborÀÌ Á³´ÂÁö È®ÀÎ
+    private void CheckNeighborLose(int neighborAnger) //Neighborì´ ì¡ŒëŠ”ì§€ í™•ì¸
     {
         if (neighborAnger >= 10)
         {
-            Debug.Log("Neighbor ÀÌ»ç ¿£µù");
+            Debug.Log("Neighbor ì´ì‚¬ ì—”ë”©");
         }
     }
 
     private void UpdateWind()
     {
         currentWind = Random.Range(minWind, maxWind);
-        //Debug.Log("ÇöÀç ¹Ù¶÷ : " +  currentWind);
+        //Debug.Log("í˜„ì¬ ë°”ëŒ : " +  currentWind);
     }
 
 }

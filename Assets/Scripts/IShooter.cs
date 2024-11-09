@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public interface IShooter //¾²·¹±â ´øÁö´Â ¾Öµé
+public interface IShooter //ì“°ë ˆê¸° ë˜ì§€ëŠ” ì• ë“¤
 {
-    void EquipTrash(Trash trash); //¾²·¹±â ÀåÂø
+    void EquipTrash(Trash trash); //ì“°ë ˆê¸° ì¥ì°©
 
-    Vector3 SetTrashTransform(); //¾²·¹±â ÀåÂø À§Ä¡ °áÁ¤
+    Vector3 SetTrashTransform(); //ì“°ë ˆê¸° ì¥ì°© ìœ„ì¹˜ ê²°ì •
 
-    IEnumerator Shoot(float power); //¾²·¹±â ´øÁö±â
+    IEnumerator Shoot(float power); //ì“°ë ˆê¸° ë˜ì§€ê¸°
 
-    Vector2 SetThrowDirection(); //¾²·¹±â ´øÁú ¹æÇâ Á¤ÇÏ±â
+    Vector2 SetThrowDirection(); //ì“°ë ˆê¸° ë˜ì§ˆ ë°©í–¥ ì •í•˜ê¸°
 }

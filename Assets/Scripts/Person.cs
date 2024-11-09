@@ -5,22 +5,22 @@ using UnityEngine;
 
 public abstract class Person : MonoBehaviour, IAngerable, IShooter
 {
-    public int anger = 0; //ºĞ³ë°ÔÀÌÁö ¼öÄ¡
-    public event Action<int> OnAngerChanged; //ºĞ³ë ¿Ã¶ó°¬À» ¶§ ¹ß»ı½ÃÅ³ ÀÌº¥Æ® (GameManager°¡ ±¸µ¶)
+    public int anger = 0; //ë¶„ë…¸ê²Œì´ì§€ ìˆ˜ì¹˜
+    public event Action<int> OnAngerChanged; //ë¶„ë…¸ ì˜¬ë¼ê°”ì„ ë•Œ ë°œìƒì‹œí‚¬ ì´ë²¤íŠ¸ (GameManagerê°€ êµ¬ë…)
 
-    protected GameObject selectedTrash = null; //´øÁú ¾²·¹±â
-    protected Rigidbody2D trashRigidbody = null; //µé°í ÀÖ´Â ¾²·¹±âÀÇ Rigidbody2D. Trash ÀåÂø, ½¸ÇÒ ¶§ ÇÊ¿ä
+    protected GameObject selectedTrash = null; //ë˜ì§ˆ ì“°ë ˆê¸°
+    protected Rigidbody2D trashRigidbody = null; //ë“¤ê³  ìˆëŠ” ì“°ë ˆê¸°ì˜ Rigidbody2D. Trash ì¥ì°©, ìŠ›í•  ë•Œ í•„ìš”
 
-    public void IncreaseAnger(int value) //ºĞ³ë Áõ°¡
+    public void IncreaseAnger(int value) //ë¶„ë…¸ ì¦ê°€
     {
         this.anger += value;
-        OnAngerChanged?.Invoke(anger); //ºĞ³ë ÀÌº¥Æ® ¹ß»ı. ÇöÀç anger°ª Àü´Ş
+        OnAngerChanged?.Invoke(anger); //ë¶„ë…¸ ì´ë²¤íŠ¸ ë°œìƒ. í˜„ì¬ angerê°’ ì „ë‹¬
     }
 
-    public void DecreaseAnger(int value) //ºĞ³ë °¨¼Ò
+    public void DecreaseAnger(int value) //ë¶„ë…¸ ê°ì†Œ
     {
         this.anger -= value;
-        OnAngerChanged?.Invoke(anger); //ºĞ³ë ÀÌº¥Æ® ¹ß»ı. ÇöÀç anger°ª Àü´Ş
+        OnAngerChanged?.Invoke(anger); //ë¶„ë…¸ ì´ë²¤íŠ¸ ë°œìƒ. í˜„ì¬ angerê°’ ì „ë‹¬
     }
 
     public bool IsHolding()
@@ -28,75 +28,75 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
         return selectedTrash != null;
     }
 
-    public void OnCollisionEnter2D(Collision2D collision) //Ãæµ¹ ½Ã
+    public void OnCollisionEnter2D(Collision2D collision) //ì¶©ëŒ ì‹œ
     {
-        Trash trash = collision.gameObject.GetComponent<Trash>(); //Ãæµ¹ÇÑ Trash ÂüÁ¶
+        Trash trash = collision.gameObject.GetComponent<Trash>(); //ì¶©ëŒí•œ Trash ì°¸ì¡°
 
         if (trash != null)
         {
-            IncreaseAnger(trash.angerImpact); //ÇØ´ç TrashÀÇ angerImapact¸¸Å­ anger Áõ°¡
+            IncreaseAnger(trash.angerImpact); //í•´ë‹¹ Trashì˜ angerImapactë§Œí¼ anger ì¦ê°€
         }
     }
 
-    public abstract Vector3 SetTrashTransform(); //¾²·¹±â À§Ä¡ ¼¼ÆÃ (¼Õ À§Ä¡·Î)
+    public abstract Vector3 SetTrashTransform(); //ì“°ë ˆê¸° ìœ„ì¹˜ ì„¸íŒ… (ì† ìœ„ì¹˜ë¡œ)
 
-    public void EquipTrash(Trash trash) //¾²·¹±â ÀåÂø
+    public void EquipTrash(Trash trash) //ì“°ë ˆê¸° ì¥ì°©
     {
         if(trash == null)
         {
-            Debug.Log("¾²·¹±â°¡ nullÀÔ´Ï´Ù");
+            Debug.Log("ì“°ë ˆê¸°ê°€ nullì…ë‹ˆë‹¤");
             return;
         }
 
-        if (!IsHolding()) //¾²·¹±â¸¦ µé°í ÀÖÁö ¾Ê´Ù¸é
+        if (!IsHolding()) //ì“°ë ˆê¸°ë¥¼ ë“¤ê³  ìˆì§€ ì•Šë‹¤ë©´
         {
             selectedTrash = trash.gameObject;
-            //Debug.Log("¾²·¹±â ÀåÂø");
+            //Debug.Log("ì“°ë ˆê¸° ì¥ì°©");
 
-            //Trash°¡ ´øÁö´Â »ç¶÷ ¼Õ¿¡ ºÙ¾îÀÖ°Ô ÇÏ´Â °úÁ¤
+            //Trashê°€ ë˜ì§€ëŠ” ì‚¬ëŒ ì†ì— ë¶™ì–´ìˆê²Œ í•˜ëŠ” ê³¼ì •
             trashRigidbody = trash.gameObject.GetComponent<Rigidbody2D>();
-            trashRigidbody.isKinematic = true; // ¹°¸® È¿°ú¸¦ ¹ŞÁö ¾Êµµ·Ï ¼³Á¤
-            trashRigidbody.constraints = RigidbodyConstraints2D.FreezeAll; // ¸ğµç ¿òÁ÷ÀÓÀ» Á¦ÇÑ
+            trashRigidbody.isKinematic = true; // ë¬¼ë¦¬ íš¨ê³¼ë¥¼ ë°›ì§€ ì•Šë„ë¡ ì„¤ì •
+            trashRigidbody.constraints = RigidbodyConstraints2D.FreezeAll; // ëª¨ë“  ì›€ì§ì„ì„ ì œí•œ
 
             selectedTrash.transform.localPosition = SetTrashTransform();
 
         }
-        else //µé°í ÀÖ´Ù¸é
+        else //ë“¤ê³  ìˆë‹¤ë©´
         {
-            Debug.Log("ÀÌ¹Ì ¾²·¹±â¸¦ µé°í ÀÖÀ½");
+            Debug.Log("ì´ë¯¸ ì“°ë ˆê¸°ë¥¼ ë“¤ê³  ìˆìŒ");
         }
     }
 
-    public abstract Vector2 SetThrowDirection(); //¾²·¹±â ´øÁú ¹æÇâ ¼¼ÆÃ (»ó´ëÂÊ ¹æÇâÀ¸·Î)
+    public abstract Vector2 SetThrowDirection(); //ì“°ë ˆê¸° ë˜ì§ˆ ë°©í–¥ ì„¸íŒ… (ìƒëŒ€ìª½ ë°©í–¥ìœ¼ë¡œ)
 
-    public IEnumerator Shoot(float power) //¾²·¹±â ´øÁö±â
+    public IEnumerator Shoot(float power) //ì“°ë ˆê¸° ë˜ì§€ê¸°
     {
         if (IsHolding()) {
 
-            power += GameManager.Instance.currentWind; //¹Ù¶÷ ¿µÇâ °í·Á
+            power += GameManager.Instance.currentWind; //ë°”ëŒ ì˜í–¥ ê³ ë ¤
 
             float forceMultiPlier = power * 10f;
             Vector2 throwDirection = SetThrowDirection();
 
-            trashRigidbody.isKinematic = false; // ¹°¸® È¿°ú¸¦ ¹Şµµ·Ï ¼³Á¤
-            trashRigidbody.constraints = RigidbodyConstraints2D.None; // ¿òÁ÷ÀÓ Á¦ÇÑÀ» ÇØÁ¦
+            trashRigidbody.isKinematic = false; // ë¬¼ë¦¬ íš¨ê³¼ë¥¼ ë°›ë„ë¡ ì„¤ì •
+            trashRigidbody.constraints = RigidbodyConstraints2D.None; // ì›€ì§ì„ ì œí•œì„ í•´ì œ
 
-            trashRigidbody.AddForce(throwDirection * forceMultiPlier, ForceMode2D.Impulse); //¾²·¹±â¿¡ Èû °¡ÇÔ
+            trashRigidbody.AddForce(throwDirection * forceMultiPlier, ForceMode2D.Impulse); //ì“°ë ˆê¸°ì— í˜ ê°€í•¨
 
             selectedTrash = null;
             trashRigidbody = null;
 
-            //´øÁö°í ³ª¼­ Àá±ñ ±â´Ù¸° ´ÙÀ½ ÅÏ ³Ñ°ÜÁÙ °ÍÀÓ
+            //ë˜ì§€ê³  ë‚˜ì„œ ì ê¹ ê¸°ë‹¤ë¦° ë‹¤ìŒ í„´ ë„˜ê²¨ì¤„ ê²ƒì„
             yield return new WaitForSeconds(3f);
 
-            GameManager.Instance.SwitchTurn(); //ÇÒ ÀÏ ´ÙÇßÀ¸´Ï ÅÏ ÀüÈ¯
+            GameManager.Instance.SwitchTurn(); //í•  ì¼ ë‹¤í–ˆìœ¼ë‹ˆ í„´ ì „í™˜
 
         }
         else
         {
-            Debug.Log("¾²·¹±â ÀåÂø ¾ÈµÇ¾îÀÖÀ½");
+            Debug.Log("ì“°ë ˆê¸° ì¥ì°© ì•ˆë˜ì–´ìˆìŒ");
 
-            GameManager.Instance.SwitchTurn(); //¾îÂ·µç ÅÏ ÀüÈ¯
+            GameManager.Instance.SwitchTurn(); //ì–´ì¨Œë“  í„´ ì „í™˜
         }
 
         

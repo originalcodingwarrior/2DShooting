@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TrashBag : Trash
 {
-    //¾²ºÀ Å¬·¡½º
+    //ì“°ë´‰ í´ë˜ìŠ¤
 
-    public GameObject trashItemPrefab; //ºÀÅõ ÅÍÁ³À» ¶§ ³ª¿Ã TrashItemÀÇ Prefab
+    public GameObject trashItemPrefab; //ë´‰íˆ¬ í„°ì¡Œì„ ë•Œ ë‚˜ì˜¬ TrashItemì˜ Prefab
 
     // Start is called before the first frame update
     protected override void Start()
@@ -24,16 +24,16 @@ public class TrashBag : Trash
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if(collision.gameObject.CompareTag("Person")) //»ç¶÷°ú Ãæµ¹ ½Ã
+        if(collision.gameObject.CompareTag("Person")) //ì‚¬ëŒê³¼ ì¶©ëŒ ì‹œ
         {
-            //Debug.Log("¾²ºÀ ÅÍÁø´Ù");
+            //Debug.Log("ì“°ë´‰ í„°ì§„ë‹¤");
 
-            TrashManager.RemoveTrash(this); //TrashManagerÇÑÅ× ¾Ë·ÁÁÜ. ¸®½ºÆ®¿¡¼­µµ Áö¿ö¾ßÇÏ´Ï±î
-            Destroy(gameObject); //TrashBag ÅÍÁ® ¾ø¾îÁö°í
+            TrashManager.RemoveTrash(this); //TrashManagerí•œí…Œ ì•Œë ¤ì¤Œ. ë¦¬ìŠ¤íŠ¸ì—ì„œë„ ì§€ì›Œì•¼í•˜ë‹ˆê¹Œ
+            Destroy(gameObject); //TrashBag í„°ì ¸ ì—†ì–´ì§€ê³ 
 
             for(int i = 0; i < 5; i++)
             {
-                GameObject trashItem = Instantiate(trashItemPrefab); //TrashItem 5°³ »ı¼º
+                GameObject trashItem = Instantiate(trashItemPrefab); //TrashItem 5ê°œ ìƒì„±
                 trashItem.transform.position =
                     transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
 

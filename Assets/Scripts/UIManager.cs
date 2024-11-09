@@ -44,20 +44,20 @@ public class UIManager : MonoBehaviour
     {
         foreach (var light in lights)
         {
-            light.gameObject.SetActive(false); //ºÒ ´Ù ²¨ÁÖ°í
+            light.gameObject.SetActive(false); //ë¶ˆ ë‹¤ êº¼ì£¼ê³ 
         }
 
-        neighborTurnCount %= 3; //3À¸·Î ³ª´« ³ª¸ÓÁö·Î ¹Ù²Ş. (0, 1, 2)
+        neighborTurnCount %= 3; //3ìœ¼ë¡œ ë‚˜ëˆˆ ë‚˜ë¨¸ì§€ë¡œ ë°”ê¿ˆ. (0, 1, 2)
 
-        lights[neighborTurnCount].gameObject.SetActive(true); //ÇØ´ç ºÒ¸¸ ÄÑÁÖ±â
+        lights[neighborTurnCount].gameObject.SetActive(true); //í•´ë‹¹ ë¶ˆë§Œ ì¼œì£¼ê¸°
 
     }
 
     public void UpdateWindUI(float wind)
     {
 
-        wind = (wind + GameManager.minWind) / 1f; //wind¸¦ 0ºÎÅÍ 1±îÁöÀÇ ¼ö·Î º¸Á¤
-        float angle = Mathf.Lerp(90f, -90f, wind); // wind°ª¿¡ µû¶ó ¹Ù´Ã °¢µµ¸¦ -90µµ~ 90µµ »çÀÌ¿¡ ¸Â°Ô º¸°£
+        wind = (wind + GameManager.minWind) / 1f; //windë¥¼ 0ë¶€í„° 1ê¹Œì§€ì˜ ìˆ˜ë¡œ ë³´ì •
+        float angle = Mathf.Lerp(90f, -90f, wind); // windê°’ì— ë”°ë¼ ë°”ëŠ˜ ê°ë„ë¥¼ -90ë„~ 90ë„ ì‚¬ì´ì— ë§ê²Œ ë³´ê°„
         //90f + (-90f - 90f) * wind
 
         needle.transform.eulerAngles = new Vector3(0f, 0f, angle);

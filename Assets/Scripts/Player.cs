@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Person
 {
-    int calmDownChance = 3; //ºĞ³ë°ÔÀÌÁö °¨¼Ò ±âÈ¸°¡ ¸î ¹ø ³²¾ÆÀÖ´ÂÁö
+    int calmDownChance = 3; //ë¶„ë…¸ê²Œì´ì§€ ê°ì†Œ ê¸°íšŒê°€ ëª‡ ë²ˆ ë‚¨ì•„ìˆëŠ”ì§€
 
     public int reductionValue = 1;
 
@@ -30,14 +30,14 @@ public class Player : Person
         return new Vector2(1, 1).normalized;
     }
 
-    public void UseCalmDownChance() //ºĞ³ë °¨¼Ò ±âÈ¸ »ç¿ë
+    public void UseCalmDownChance() //ë¶„ë…¸ ê°ì†Œ ê¸°íšŒ ì‚¬ìš©
     {
-        if(calmDownChance > 0 && GameManager.Instance.IsPlayerTurn()) // ±âÈ¸°¡ ³²¾ÆÀÖ°í, ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀÌ¸é
+        if(calmDownChance > 0 && GameManager.Instance.IsPlayerTurn()) // ê¸°íšŒê°€ ë‚¨ì•„ìˆê³ , í”Œë ˆì´ì–´ì˜ í„´ì´ë©´
         {
-            DecreaseAnger(reductionValue); //anger °¨¼Ò ÇÔ¼ö È£Ãâ
-            calmDownChance -= 1; //±âÈ¸ °¨¼Ò
+            DecreaseAnger(reductionValue); //anger ê°ì†Œ í•¨ìˆ˜ í˜¸ì¶œ
+            calmDownChance -= 1; //ê¸°íšŒ ê°ì†Œ
 
-            GameManager.Instance.SwitchTurn(); // 1ÅÏ ¼Ò¸ğ
+            GameManager.Instance.SwitchTurn(); // 1í„´ ì†Œëª¨
         }
         
     }
