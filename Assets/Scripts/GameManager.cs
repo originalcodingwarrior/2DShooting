@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckPlayerLose(int playerAnger) //Player가 졌는지 확인
     {
-        if (playerAnger >= 1)
+        if (playerAnger >= 10)
         {
             sceneController.LoadGameOver();
             Debug.Log("Player 이사 엔딩");
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckNeighborLose(int neighborAnger) //Neighbor이 졌는지 확인
     {
-        if (neighborAnger >= 1)
+        if (neighborAnger >= 10)
         {
             Debug.Log("Neighbor 이사 엔딩");
             sceneController.LoadNextStage(); 
