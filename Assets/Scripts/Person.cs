@@ -13,6 +13,7 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
 
     public void IncreaseAnger(int value) //분노 증가
     {
+        //Debug.Log("분노 " + value + " 증가");
         this.anger += value;
         OnAngerChanged?.Invoke(anger); //분노 이벤트 발생. 현재 anger값 전달
     }
@@ -63,13 +64,13 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
         }
         else //들고 있다면
         {
-            Debug.Log("이미 쓰레기를 들고 있음");
+            return;
         }
     }
 
     public abstract Vector2 SetThrowDirection(); //쓰레기 던질 방향 세팅 (상대쪽 방향으로)
 
-    public IEnumerator Shoot(float power) //쓰레기 던지기
+    public virtual IEnumerator Shoot(float power) //쓰레기 던지기
     {
         if (IsHolding()) {
 
@@ -83,13 +84,15 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
 
             trashRigidbody.AddForce(throwDirection * forceMultiPlier, ForceMode2D.Impulse); //쓰레기에 힘 가함
 
-            selectedTrash = null;
             trashRigidbody = null;
 
             //던지고 나서 잠깐 기다린 다음 턴 넘겨줄 것임
             yield return new WaitForSeconds(3f);
 
+            selectedTrash = null;
+
             GameManager.Instance.SwitchTurn(); //할 일 다했으니 턴 전환
+
 
         }
         else

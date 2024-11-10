@@ -2,17 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class TrashManager
+public class TrashManager : MonoBehaviour
 {
 
     //이 클래스가 하는 일~
     //모든 Trash 관리 - Player 소유인지 Neighbor 소유인지 Trash의 owner 관리
     //랜덤하게 Trash 하나 반환 - Neighbor이 장착할 Trash 고를 때 사용할 것.
 
-    private static List<Trash> neighborTrash = new List<Trash>(); //neighbor쪽에 있는 Trash
-    private static List<Trash> playerTrash = new List<Trash>(); //player쪽에 있는 Trash
+    public static TrashManager Instance;
 
-    public static void RegisterTrash(Trash trash) //생성된 Trash를 등록
+    private List<Trash> neighborTrash = new List<Trash>(); //neighbor쪽에 있는 Trash
+    private List<Trash> playerTrash = new List<Trash>(); //player쪽에 있는 Trash
+
+    private void Awake()
+    {
+        // 싱글톤
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+    public void RegisterTrash(Trash trash) //생성된 Trash를 등록
     {
         if (trash.owner == Owner.Player)
         {
@@ -24,7 +40,7 @@ public static class TrashManager
         }
     }
 
-    public static void RemoveTrash(Trash trash)
+    public void RemoveTrash(Trash trash)
     {
         if (trash.owner == Owner.Player)
         {
@@ -36,17 +52,17 @@ public static class TrashManager
         }
     }
 
-    public static bool HasPlayerTrash()
+    public bool HasPlayerTrash()
     {
         return playerTrash.Count > 0;
     }
 
-    public static bool HasNeighborTrash()
+    public bool HasNeighborTrash()
     {
         return neighborTrash.Count > 0;
     }
 
-    public static void ChangeOwner(Trash trash, Collider2D other) //Trash의 Owner변경 + 리스트 갱신
+    public void ChangeOwner(Trash trash, Collider2D other) //Trash의 Owner변경 + 리스트 갱신
     {
         Owner newOwner = DetermineNewOwner(other); //해당 Zone의 주인이 누군지 확인하고 owner결정
 
@@ -66,7 +82,7 @@ public static class TrashManager
         }
 
     }
-    private static Owner DetermineNewOwner(Collider2D other) //Owner이 누군지 확인
+    private Owner DetermineNewOwner(Collider2D other) //Owner이 누군지 확인
     {
         if (other.CompareTag("Neighbor's")) //NeighborZone에 들어왔다면
 
@@ -82,7 +98,7 @@ public static class TrashManager
 
     }
 
-    public static Trash GetTrashForNeighbor() //Neighbor이 쓸 Trash 골라주기
+    public Trash GetTrashForNeighbor() //Neighbor이 쓸 Trash 골라주기
     {
         if (HasNeighborTrash()) { //neighbor의 trash가 있으면
 

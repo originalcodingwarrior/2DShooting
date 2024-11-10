@@ -8,6 +8,8 @@ public class Player : Person
 
     public int reductionValue = 1;
 
+    private bool isShooting = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,17 @@ public class Player : Person
     public override Vector2 SetThrowDirection()
     {
         return new Vector2(1, 1).normalized;
+    }
+
+    public override IEnumerator Shoot(float power) //쓰레기 던지기
+    {
+        if(!isShooting) //무한으로 던지기 방지.
+        {
+            isShooting = true;
+            yield return base.Shoot(power); //Shoot이 끝날 때까지 기다림
+            isShooting = false; //슈팅상태 해제
+        }
+
     }
 
     public void UseCalmDownChance() //분노 감소 기회 사용

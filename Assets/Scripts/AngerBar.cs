@@ -21,7 +21,7 @@ public class AngerBar : MonoBehaviour
 
     void Start()
     {
-        slider.maxValue = 10;
+        slider.maxValue = 20;
         slider.value = 0;
         fillImage.color = gradient.Evaluate(0f);
     }

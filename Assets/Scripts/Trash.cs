@@ -11,7 +11,7 @@ public class Trash : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        TrashManager.RegisterTrash(this); //TrashManager가 Trash를 관리할 수 있도록 List에 등록
+        TrashManager.Instance.RegisterTrash(this); //TrashManager가 Trash를 관리할 수 있도록 List에 등록
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class Trash : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) //Zone에 닿았을 때
     {
-        TrashManager.ChangeOwner(this, other); //owner 바꾸기
+        TrashManager.Instance.ChangeOwner(this, other); //owner 바꾸기
 
     }
 
