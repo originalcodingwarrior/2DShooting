@@ -5,7 +5,7 @@ using UnityEngine;
 public class AngerTarget : MonoBehaviour, IAngerable //피격만 담당. 쓰레기 맞으면 Neighbor의 Anger값 올리는 애들.
 {
     public Neighbor neighbor; //Neighbor 참조
-
+    
     public int angerBonus; //락스타의 기타같은 경우, 추가적인 데미지가 들어가니까 변수 만들어놓음.
 
     public void IncreaseAnger(int value)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 public enum Owner
 {
@@ -82,9 +83,17 @@ public class GameManager : MonoBehaviour
 
         currentTurnPerson = neighbor; //상대방의 턴으로 변경
 
-        if (++neighborTurnCount % 3 == 0) //3턴마다
-            neighbor.CalmDown(); //분노 감소 (50% 확률)
+        int calmDownSuccess = 0;
 
+        if (++neighborTurnCount % 3 == 0) //3턴마다
+           calmDownSuccess = neighbor.CalmDown(); //분노 감소 (50% 확률)
+
+            if(calmDownSuccess == 1){
+                if(SceneManager.GetActiveScene().name == "Stage3"){
+                    Debug.Log("개뿍침");
+                    player.IncreaseAnger(calmDownSuccess); //스테이지 3일때 플레이어의 분노 증가
+                }
+            }
         currentWind *= -1; //neighbor은 currentWind의 부호를 반대로 사용
         neighbor.PrepareShoot(); //neighbor이 슛할 수 있게 준비시키기
 
@@ -109,6 +118,7 @@ public class GameManager : MonoBehaviour
     {
         if (playerAnger >= 10)
         {
+            SceneManager.LoadScene("GameOver");
             Debug.Log("Player 이사 엔딩");
         }
     }
@@ -119,6 +129,19 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Neighbor 이사 엔딩");
         }
+
+        if(SceneManager.GetActiveScene().name == "GameScene"){
+            SceneManager.LoadScene("Stage2");
+        }
+
+        else if(SceneManager.GetActiveScene().name == "Stage2"){
+            SceneManager.LoadScene("Stage3");
+        }
+
+        else if(SceneManager.GetActiveScene().name == "Stage3"){
+            SceneManager.LoadScene("Ending");
+        }
+
     }
 
     private void UpdateWind()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Neighbor : Person
 {
@@ -12,6 +13,7 @@ public class Neighbor : Person
     bool isShooting = false; //힘 주고 있는지
 
     public int reductionValue = 1;
+    public int reductionBonus = 1; // 스테이지 3의 락스타 기믹을 위한 변수
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +59,7 @@ public class Neighbor : Person
         return new Vector2(-1, 1).normalized;
     }
 
-    public void CalmDown() //실행 조건은 GameManager에서 확인할 것. (Neighbor의 turn이 3의배수째인지)
+    public int CalmDown() //실행 조건은 GameManager에서 확인할 것. (Neighbor의 turn이 3의배수째인지)
     {
         Debug.Log("Neighbor의 CalmDown실행");
 
@@ -65,8 +67,12 @@ public class Neighbor : Person
         {
             Debug.Log("Neighbor CalmDown 성공!");
             DecreaseAnger(reductionValue); //분노 감소
+
+            return reductionBonus;
         }
         
+        return 0;
+
     }
 
 }
