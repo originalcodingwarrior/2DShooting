@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.63, y: -3.91, z: 0}
-  m_LocalScale: {x: 1.7421, y: 1.7421, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.9882353, b: 0.5803922, a: 1}
+  m_Sprite: {fileID: 11877508, guid: 3e33b1e21e8098246b37d1f7481f0935, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,8 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angerImpact: 2
-  isEquipped: 0
+  owner: 0
   trashItemPrefab: {fileID: 5224245371104753277, guid: 4a6ae206cd8661749a0b24a959ce9819, type: 3}
+  canTrashPrefab: {fileID: 3442466169505270231, guid: d1db62c8ac7a15b439de9a0f3ffad6ca, type: 3}
 --- !u!58 &6451218298109163563
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.03, y: -0.2}
   serializedVersion: 2
   m_Radius: 0.50000006
 --- !u!50 &6257202277018679784

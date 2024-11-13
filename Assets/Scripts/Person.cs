@@ -82,6 +82,7 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
             trashRigidbody.isKinematic = false; // 물리 효과를 받도록 설정
             trashRigidbody.constraints = RigidbodyConstraints2D.None; // 움직임 제한을 해제
 
+            trashRigidbody.AddTorque(power, ForceMode2D.Impulse);
             trashRigidbody.AddForce(throwDirection * forceMultiPlier, ForceMode2D.Impulse); //쓰레기에 힘 가함
 
             trashRigidbody = null;
