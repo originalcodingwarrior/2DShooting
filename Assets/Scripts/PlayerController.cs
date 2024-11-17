@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private float holdTime = 0f;
     private bool isHoldingMouse = false;
     public Player player;
+
+    public Slider powerBar;
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +30,12 @@ public class PlayerController : MonoBehaviour
 
         if(isHoldingMouse)
         {
-            holdTime += Time.deltaTime;
-            //Debug.Log("파워 상승 : " + holdTime);
+            if (holdTime < 3f)
+            {
+                holdTime += Time.deltaTime;
+                powerBar.value = holdTime;
+                //Debug.Log("파워 상승 : " + holdTime);
+            }
         }
 
         if (player.IsHolding() && Input.GetMouseButtonUp(0))
@@ -36,6 +43,7 @@ public class PlayerController : MonoBehaviour
             isHoldingMouse = false;
             StartCoroutine(player.Shoot(holdTime));
             holdTime = 0f;
+            powerBar.value = 0;
         }
 
     }

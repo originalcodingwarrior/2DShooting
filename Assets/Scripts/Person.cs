@@ -11,6 +11,7 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
     protected GameObject selectedTrash = null; //던질 쓰레기
     protected Rigidbody2D trashRigidbody = null; //들고 있는 쓰레기의 Rigidbody2D. Trash 장착, 슛할 때 필요
 
+    public SpriteController spriteController;
     public void IncreaseAnger(int value) //분노 증가
     {
         //Debug.Log("분노 " + value + " 증가");
@@ -61,6 +62,7 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
 
             selectedTrash.transform.localPosition = SetTrashTransform();
 
+            spriteController.ChangeToHolding(); //스프라이트 변경
         }
         else //들고 있다면
         {
@@ -87,6 +89,8 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
 
             trashRigidbody = null;
 
+            spriteController.ChangeToThrowing(); //스프라이트 변경
+
             //던지고 나서 잠깐 기다린 다음 턴 넘겨줄 것임
             yield return new WaitForSeconds(3f);
 
@@ -94,7 +98,7 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
 
             GameManager.Instance.SwitchTurn(); //할 일 다했으니 턴 전환
 
-
+            spriteController.ChangeToIdle();
         }
         else
         {
