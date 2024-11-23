@@ -13,10 +13,15 @@ public class PlayerController : MonoBehaviour
 
     public Slider powerBar;
 
+    public AudioClip holdingSound; //게이지 찰 때 나는 소리
+    protected AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -24,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         if(player.IsHolding() && Input.GetMouseButtonDown(0))
         {
+            audioSource.PlayOneShot(holdingSound);
             isHoldingMouse = true;
             holdTime = 0f;
         }

@@ -12,6 +12,15 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
     protected Rigidbody2D trashRigidbody = null; //들고 있는 쓰레기의 Rigidbody2D. Trash 장착, 슛할 때 필요
 
     public SpriteController spriteController;
+
+    public AudioClip shootSound; //던질 때 나는 소리
+    protected AudioSource audioSource;
+
+    protected virtual void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void IncreaseAnger(int value) //분노 증가
     {
         //Debug.Log("분노 " + value + " 증가");
@@ -52,6 +61,7 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
 
         if (!IsHolding()) //쓰레기를 들고 있지 않다면
         {
+
             selectedTrash = trash.gameObject;
             //Debug.Log("쓰레기 장착");
 
@@ -91,6 +101,8 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
 
             spriteController.ChangeToThrowing(); //스프라이트 변경
 
+            audioSource.PlayOneShot(shootSound); //사운드 재생
+
             //던지고 나서 잠깐 기다린 다음 턴 넘겨줄 것임
             yield return new WaitForSeconds(3f);
 
@@ -110,16 +122,4 @@ public abstract class Person : MonoBehaviour, IAngerable, IShooter
         
     }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

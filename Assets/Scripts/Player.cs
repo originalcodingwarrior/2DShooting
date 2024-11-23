@@ -10,10 +10,9 @@ public class Player : Person
 
     private bool isShooting = false;
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
@@ -45,9 +44,7 @@ public class Player : Person
 
     public void UseCalmDownChance() //분노 감소 기회 사용
     {
-        GetComponent<AudioSource>().Play();
         
-
         if(calmDownChance > 0 && GameManager.Instance.IsPlayerTurn()) // 기회가 남아있고, 플레이어의 턴이면
         {
             DecreaseAnger(reductionValue); //anger 감소 함수 호출

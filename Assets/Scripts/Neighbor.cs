@@ -15,11 +15,9 @@ public class Neighbor : Person
     public int reductionValue = 1;
     public int reductionBonus; //얄미운 정도?이만큼 열받게함? 같은 뜻이니까 annoyance같은 변수명은 어떨까여
 
-
-    // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-
+        base.Start();
     }
 
     // Update is called once per frame

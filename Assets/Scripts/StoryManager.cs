@@ -8,6 +8,9 @@ public class StoryManager : MonoBehaviour
     public int HighestLayer = 0;
     int LastImage = 0;
 
+    public AudioClip clearSound;
+    private AudioSource audioSource;
+
     public void deleteImage(){
 
         if(LastImage == 1){
@@ -37,7 +40,15 @@ public class StoryManager : MonoBehaviour
         }
         
     }
+
     
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+
+        audioSource.PlayOneShot(clearSound);
+    }
 
     // Update is called once per frame
     void Update()

@@ -68,7 +68,7 @@ public class TrashManager : MonoBehaviour
 
         if(newOwner == Owner.None) //이런 일은 아마 없을 것이지만 그냥 혹시 모르니까
         {
-            Debug.Log("엣~??"); //엣~~??
+            Debug.Log("엣~??");
             return; //걍 암것도 하지말고 return
         }
 
