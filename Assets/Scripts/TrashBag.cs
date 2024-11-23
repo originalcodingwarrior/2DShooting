@@ -27,6 +27,9 @@ public class TrashBag : Trash
 
         if(collision.gameObject.CompareTag("HitTarget")) //대상이 되는 객체와 충돌 시
         {
+
+            ;
+
             //Debug.Log("쓰봉 터진다");
 
             TrashManager.Instance.RemoveTrash(this); //TrashManager한테 알려줌. 리스트에서도 지워야하니까

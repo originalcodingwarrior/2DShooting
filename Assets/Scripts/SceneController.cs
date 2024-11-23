@@ -9,7 +9,7 @@ public class SceneController : MonoBehaviour
     //다음 씬이 뭔지 알고 있기
     //씬이 바뀌어도 남아있음
 
-    private static string[] sceneName = { "Stage1", "Stage2", "Stage3", "Ending" };
+    private static string[] sceneName = { "Story1", "Story2", "Story3", "Ending" };
     private static int sceneIndex = 0;
 
     private static SceneController instance; //private한 인스턴스
@@ -39,9 +39,12 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
 
+    /*
+    Retry 새로 만들어서 지웠습니다~
     public void LoadNewGame() //Retry 버튼이 이 함수로 연결되게 했어용
     {
         sceneIndex = 0;
         SceneManager.LoadScene("Stage1");
     }
+    */
 }

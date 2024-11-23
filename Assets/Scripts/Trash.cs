@@ -22,6 +22,7 @@ public class Trash : MonoBehaviour
 
     void OnMouseDown() //클릭되었을 때
     {
+        GetComponent<AudioSource>().Play();
         //Debug.Log("쓰레기 클릭");
         if (owner == Owner.Player && GameManager.Instance.IsPlayerTurn()) //플레이어 소유의 쓰레기가 맞는지, 플레이어의 턴이 맞는지 확인
         {
